@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css">
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="app/js/controller/index-controller.js"></script>
+    <script src="app/js/filters/maiusculo-filter.js"></script>
+    <script src="app/js/service/alert-service.js"></script>
+
+
+</head>
+<body ng-app="modulo1">
+
+<script src="bower_components/angular-ui-growl/src/growl.js"></script>
+
+<script type="text/ng-template" id="error-messages">
+    <p ng-message="minlength"> Campo muito curto</p>
+    <p ng-message="maxlength"> Campo muito longo</p>
+    <p ng-message="required"> Campo requirido</p>
+    <p ng-message="email"> E-Mail inválido</p>
+</script>
+
+<div ng-controller="IndexController" class="container">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading"> Cadastro de pessoas</div>
+        <div class="panel-body">
+            <form novalidate name="myForm">
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="itNome">
+                                <label> nome </label>
+                                <i style="..." class="fa fa-asterisk"></i>
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="itNome"
+                                   id="itNome"
+                                   ng-model="entidade.nome"
+                                   ng-required="true"
+                                   ng-minlength="3"
+                                   ng-maxlength="15">
+
+                            <div class="help-block" ng-messages="myForm.itNome.$error" ng-show="myForm.itNome.$dirty">
+                                <div ng-messages-include="error-messages"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="itNascimento">
+                                <label>
+                                    Nascimento </label>
+                                <i style="..." class="fa fa-asterisk"></i>
+                            </label>
+
+                            <input type="date"
+                                   class="form-control"
+                                   name="itNascimento"
+                                   id="itNascimento"
+                                   ng-model="entidade.nascimento"
+                                   required
+                                   ng-minlength="3"
+                                   ng-maxlength="15">
+
+                            <div class="help-block" ng-messages="myForm.itNascimento.$error"
+                                 ng-show="myForm.itNascimento.$dirty">
+                                <div ng-messages-include="error-messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <button type="button" class="btn btn-primary" ng-click="salvar()">
+                        <i class="fa fa-save"></i>
+                        Salvar
+                    </button>
+                    <button class="btn btn-warning">
+                        <i class="fa fa-eraser"></i>
+                        Limpar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"> Listagem de pessoas</div>
+        <div class="panel-body">
+
+            <div>
+                <table class="table">
+                    <tr>
+                        <th> nome</th>
+                        <th> nascimento</th>
+                    </tr>
+
+                    <tr ng-repeat="entidade in arrEntidade">
+                        <td ng-bind="entidade.nome | maiusculo"></td>
+                        <td ng-bind="entidade.nascimento | date:'dd/MM/yyyy'"></td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
