@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
     <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css">
+
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="app/js/controller/index-controller.js"></script>
     <script src="app/js/filters/maiusculo-filter.js"></script>
@@ -35,8 +38,8 @@
         <div class="panel-heading"> Cadastro de pessoas</div>
         <div class="panel-body">
             <form novalidate name="myForm">
-                <div class="row">
 
+                <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="itNome">
@@ -60,7 +63,6 @@
                         </div>
 
                     </div>
-
 
                 </div>
 
@@ -91,6 +93,33 @@
                 </div>
 
 
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="itCorLinha">
+                                <label> Cor da Linha </label>
+                                <i style="..." class="fa fa-asterisk"></i>
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="itCorLinha"
+                                   id="itCorLinha"
+                                   ng-model="entidade.corLinha"
+                                   ng-required="true">
+
+                            <div class="help-block" ng-messages="myForm.itCorLinha.$error" ng-show="myForm.itCorLinha.$dirty">
+                                <div ng-messages-include="error-messages"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
                 <div class="row">
                     <button type="button" class="btn btn-primary" ng-click="salvar()">
                         <i class="fa fa-save"></i>
@@ -104,26 +133,28 @@
             </form>
         </div>
     </div>
-
+    <div class="row"></div>
     <div class="panel panel-default">
         <div class="panel-heading"> Listagem de pessoas</div>
         <div class="panel-body">
 
-            <div>
-                <table class="table">
-                    <tr>
-                        <th> nome</th>
-                        <th> nascimento</th>
-                    </tr>
+            <!-- TABELA QUE UTILIZA O REPEAT PARA ITERAR A LISTA
+            <table class="table">
+                <tr>
+                    <th> nome</th>
+                    <th> nascimento</th>
+                </tr>
 
-                    <tr ng-repeat="entidade in arrEntidade">
-                        <td ng-bind="entidade.nome | maiusculo"></td>
-                        <td ng-bind="entidade.nascimento | date:'dd/MM/yyyy'"></td>
-                    </tr>
-                </table>
+                <tr ng-repeat="entidade in arrEntidade">
+                    <td ng-bind="entidade.nome | maiusculo"></td>
+                    <td ng-bind="entidade.nascimento | date:'dd/MM/yyyy'"></td>
+                </tr>
+            </table>
+            -->
+
+            <div ui-grid="gridOptions"></div>
 
 
-            </div>
         </div>
     </div>
 </div>
