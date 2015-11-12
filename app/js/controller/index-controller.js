@@ -1,4 +1,58 @@
-angular.module('modulo1', ['ngMessages', 'ui.growl','ui.grid']);
+angular.module('modulo1', ['ngMessages', 'ui.growl','ui.grid', 'ui.router', 'os.lazyLoad']).config(config);
+
+config.$inject = ['$stateProvider', '$urlRouterProvider']
+
+function config($stateProvider, $urlRouterProvider){
+
+    var home = {
+        url: '/',
+        templateUrl: 'app/views/home.html'
+    }
+
+    var produto = {
+        url: '/produto',
+        templateUrl: 'app/views/produto/cadastro-produto.html'
+    }
+
+    var produtoPesquisa = {
+        url: '/pesquisa',
+        templateUrl: 'app/views/produto/pesquisa-produto.html'
+    }
+
+    var pessoa = {
+        abstract: true,
+        url: '/pessoa',
+        template: '<ui-view>'
+    }
+
+    var cadastroPessoa= {
+        url: '/cadastro',
+        templateUrl: 'app/views/pessoa/cadastro-pessoa.html'
+        resolve: {
+            deps: function ($oclazyload) {
+                return $oclazyload
+                    .load({'js/controllers/CadastroPessoaController'
+                })
+            }
+        }
+    }
+
+    var pesquisaPessoa = {
+        url: '/pesquisa',
+        templateUrl: 'app/views/pessoa/pesquisa-pessoa.html'
+    }
+
+    $stateProvider
+        .state('home', home)
+        .state('produto', produto)
+        .state('produto.pesquisa', produtoPesquisa)
+        .state('pessoa', pessoa)
+        .state('pessoa.cadastro', cadastroPessoa)
+        .state('pessoa.pesquisa', pesquisaPessoa)
+
+}
+
+
 angular.module('modulo1').controller('IndexController', IndexController);
 
 IndexController.$inject = ['$scope', 'AlertService'];
